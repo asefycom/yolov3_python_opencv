@@ -8,7 +8,7 @@ coco_classes = []
 net_config = "cfg/yolov3-tiny.cfg"
 net_weights = "cfg/yolov3-tiny.weights"
 blob_size = 320
-confidence_threshold = 0.2
+confidence_threshold = 0.25
 nms_threshold = 0.3
 
 with open(coco_file, "rt") as f:
@@ -39,14 +39,14 @@ def findObjects(output, img):
                 class_ids.append(class_id)
                 confidences.append(float(confidence))
     indices = cv2.dnn.NMSBoxes(bboxes, confidences, confidence_threshold, nms_threshold)
-    print(indices)
+    # print(indices)
     for i in indices:
         i = i[0]
         bbox = bboxes[i]
         x,y,w,h = bbox[0], bbox[1], bbox[2], bbox[3]
         cv2.rectangle(img, (x,y), (x+w, y+h), (0,255,0), 2)
         cv2.putText(img, f'{coco_classes[class_ids[i]].upper()} {int(confidences[i] * 100)}%',
-                    (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,255,0), 2)
+                    (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0,255,0), 2)
 
 while True:
     success, frame = cap.read()
