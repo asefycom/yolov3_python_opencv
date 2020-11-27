@@ -5,10 +5,10 @@ cap = cv2.VideoCapture(0)
 
 coco_file = "coco.names"
 coco_classes = []
-net_config = "cfg/yolov3.cfg"
-net_weights = "cfg/yolov3.weights"
+net_config = "cfg/yolov3-tiny.cfg"
+net_weights = "cfg/yolov3-tiny.weights"
 blob_size = 320
-confidence_threshold = 0.5
+confidence_threshold = 0.2
 nms_threshold = 0.3
 
 with open(coco_file, "rt") as f:
