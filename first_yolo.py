@@ -12,8 +12,8 @@ blob_size = 320
 with open(coco_file, "rt") as f:
     coco_classes = f.read().rstrip("\n").split("\n")
 
-print(coco_classes)
-print(len(coco_classes))
+# print(coco_classes)
+# print(len(coco_classes))
 
 net = cv2.dnn.readNetFromDarknet(net_config, net_weights)
 net.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)
@@ -27,6 +27,15 @@ while True:
     #     for k, b in enumerate(image):
     #         cv2.imshow(str(k), b)
     net.setInput(blob)
+    out_names = net.getUnconnectedOutLayersNames()
+    output = net.forward(out_names)
+    # print(net.getUnconnectedOutLayersNames())
+    # print(len(output))
+    # print(type(output))
+    # print(output[0].shape)
+    # print(output[1].shape)
+    # print(output[2].shape)
+
 
     cv2.imshow("Webcam", frame)
     if cv2.waitKey(1) == ord('q'):
